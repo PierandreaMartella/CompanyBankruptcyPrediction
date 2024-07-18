@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 
 
-def standard_OHE(df):
+def standard_OHE(df, drop_first=False):
     """
     Trasforma le variabili binarie in 0 e 1, e one-hot encode le variabili categoriche in un DataFrame.
     """
@@ -22,6 +22,8 @@ def standard_OHE(df):
 
     # Apply One-Hot Encoding
     encoder = OneHotEncoder(sparse_output=False)
+    if drop_first:
+        encoder = OneHotEncoder(drop="first", sparse_output=False)
     one_hot_encoded = encoder.fit_transform(df[categorical_columns])
 
     one_hot_df = pd.DataFrame(
